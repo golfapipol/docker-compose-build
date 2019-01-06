@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:3.2.10
+    ports:
+    - "28110:27017"
+    
+  api-service:
+    container_name: api-service-1
+    image: api-service:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - "9110:3000"
+    expose:
+    - 9110
+    
+  batch-trigger:
+    container_name: batch-trigger
+    image: batch-trigger:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.batch_trigger
+
+  stub-service:
+    container_name: stub-webservice
+    image: stub-service:latest
+    build:
+      context: stubby
+      dockerfile: Dockerfile_stub
+    ports:
+    - "9113:8882"
+    expose:
+    - 9113
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "8k"

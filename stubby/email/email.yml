@@ -1,0 +1,10 @@
+# Email
+-  request:
+      method: POST
+      url: /email/send
+
+   response:
+      status: 200
+      headers:
+         content-type: application/json
+      file: emailResponse.json
